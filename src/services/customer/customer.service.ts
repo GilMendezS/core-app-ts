@@ -3,8 +3,9 @@ import { CustomerModel } from '../../models/customer';
 import { AddressModel } from '../../models/address';
 import { UserModel } from '../../models/user';
 import CompleteCustomer from '../../models/interfaces/basecustomer';
-import { hashPassword }  from '../password/password.service'
-
+import { hashPassword }  from '../password/password.service';
+import { AccountModel } from '../../models/account';
+import AccountAttributesI from '../../models/interfaces/account.interface';
 
 export function createCustomer( data ) {
     let newCustomer: CompleteCustomer;
@@ -18,7 +19,6 @@ export function createCustomer( data ) {
                 newCustomer.address = address;
                 return newCustomer;
         }).catch(function (err) {
-                console.log(err);
                 throw new Error( "Error saving customer." );
         });
 };
@@ -38,17 +38,25 @@ export async function addUser( data ) {
                 });
             })
             .catch(function (err) {
-                console.log( err )
                 throw new Error( "Error saving user." );
             });
 }
 export function findCustomerById( id: number ) {
-    return CustomerModel.findByPk( id, {
-            include: ['User']
-    } )
+    return CustomerModel.findByPk( id )
         .then( result => result )
         .catch( err => {
-                console.log( err )
                 throw new Error( "Error fetching user." );
         } )
+}
+export function addAccount( data: AccountAttributesI ) {
+    return database.transaction( (t) =>  {
+        return AccountModel.create( data , { transaction: t })
+            .then( (account) => {
+                return account;
+        })
+    })
+    .catch(function (err) {
+        console.log( 'ERROR', err );
+        throw new Error( "Error saving account." );
+    });
 }

@@ -43,7 +43,8 @@ class CustomerRequestValidator {
                     if ( !customer ) {
                         return Promise.reject('Invalid customer_id, customer doesnt exists');
                     }
-                    if ( customer.get('User') ) {
+                    const hasUserAccount = await customer.hasUser();
+                    if ( hasUserAccount ) {
                         return Promise.reject('The customer already has an user');
                     }
                 } ),

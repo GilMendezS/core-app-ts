@@ -1,8 +1,7 @@
 import { App } from './app'
-
+import AppEnvs from './config/application';
 async function main() {
-    const app = new App(process.env.PORT);
+    const app = new App( AppEnvs.loadEnvs().port );
     await app.listen();
 }
-
 main();

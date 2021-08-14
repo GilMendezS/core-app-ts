@@ -2,6 +2,7 @@ import express, { Router } from 'express';
 const router: Router = express.Router();
 import { addCustomer, createUser, account } from '../controllers/customer/customer.controller';
 import CustomerRequestValidator from '../validators/customer.validator';
+import AccountRequestValidator from '../validators/account.validator';
 import { handlerException } from '../middlewares/exception.middleware';
 import RequestValidator  from '../middlewares/validator.middleware';
 
@@ -15,6 +16,9 @@ router.post( '/add-user',
     RequestValidator.handleValidationError,
     handlerException( createUser ))
 
-router.post( '/add-account', handlerException( account ) )
+router.post( '/add-account',
+    AccountRequestValidator.validateCreateAccount(),
+    RequestValidator.handleValidationError,
+    handlerException( account ) )
 
 export default router;

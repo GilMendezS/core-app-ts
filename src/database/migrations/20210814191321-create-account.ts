@@ -29,7 +29,7 @@ module.exports = {
         type: Sequelize.ENUM('active','inactive')
       },
       nip: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING,
       },
       customer_id: {
         type: Sequelize.DataTypes.INTEGER,

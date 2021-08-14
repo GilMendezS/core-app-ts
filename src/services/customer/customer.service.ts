@@ -3,7 +3,7 @@ import { CustomerModel } from '../../models/customer';
 import { AddressModel } from '../../models/address';
 import { UserModel } from '../../models/user';
 import CompleteCustomer from '../../models/interfaces/basecustomer';
-import { hashPassword }  from '../password/password.service';
+import { generateHash }  from '../hash/hash.service';
 import { AccountModel } from '../../models/account';
 import AccountAttributesI from '../../models/interfaces/account.interface';
 
@@ -30,7 +30,7 @@ export function verifyRfc( rfc: string ) {
         } );
 };
 export async function addUser( data ) {
-    const hashedPassword = hashPassword( data.password );
+    const hashedPassword = generateHash( data.password );
     return database.transaction( (t) =>  {
         return UserModel.create( { ...data, password: hashedPassword } , { transaction: t })
             .then( (user) => {
@@ -49,6 +49,7 @@ export function findCustomerById( id: number ) {
         } )
 }
 export function addAccount( data: AccountAttributesI ) {
+    data.nip = generateHash( data.nip ) as string;
     return database.transaction( (t) =>  {
         return AccountModel.create( data , { transaction: t })
             .then( (account) => {

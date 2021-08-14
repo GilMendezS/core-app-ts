@@ -3,14 +3,14 @@ import { Model, DataTypes } from 'sequelize';
 import database from '../config/database.connection'
 import ProductAttributesI from './interfaces/product.interface';
 
-export class AccountModel extends Model implements ProductAttributesI {
+export class ProductModel extends Model implements ProductAttributesI {
   id?: number;
   name!: string;
   description?: string;
   active?: boolean;
 }
 
-AccountModel.init({
+ProductModel.init({
   name: DataTypes.STRING,
   description: DataTypes.STRING,
   active: DataTypes.BOOLEAN

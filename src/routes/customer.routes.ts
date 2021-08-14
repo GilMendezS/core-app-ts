@@ -11,6 +11,8 @@ router.post('/',
     handlerException( addCustomer ) );
 
 router.post( '/add-user',
+    CustomerRequestValidator.validateCreateUser(),
+    RequestValidator.handleValidationError,
     handlerException( createUser ))
 
 export default router;

@@ -1,6 +1,6 @@
 import { body } from 'express-validator';
-import { verifyRfc } from '../services/customer/customer.service';
-
+import { verifyRfc, findCustomerById } from '../services/customer/customer.service';
+import { getUserByUsername } from '../services/customer/user.service'
 class CustomerRequestValidator {
     validateCreateCustomer() {
         return [
@@ -32,6 +32,35 @@ class CustomerRequestValidator {
                 .withMessage('The address.municipality field is required'),
             body( 'address.country' ).notEmpty()
                 .withMessage('The address.municipality field is required')
+        ]
+    }
+    validateCreateUser() {
+        return [
+            body( 'customer_id' ).notEmpty()
+                .withMessage( 'The customer_id field is required' ).bail()
+                .custom( async value => {
+                    const customer = await findCustomerById( value );
+                    if ( !customer ) {
+                        return Promise.reject('Invalid customer_id, customer doesnt exists');
+                    }
+                    if ( customer.get('User') ) {
+                        return Promise.reject('The customer already has an user');
+                    }
+                } ),
+            body( 'username' ).notEmpty()
+                .withMessage( 'The username field is required' )
+                .isLength({ min:5 })
+                .withMessage( 'The username field must be at least 5 characters' )
+                .custom( async username => {
+                    const user = await getUserByUsername( username );
+                    if ( user ) {
+                        return Promise.reject('Username already in use');
+                    }
+                } ),
+            body( 'password' ).notEmpty()
+                .withMessage( 'The password fiels is required' )
+                .isLength( { min: 6 } )
+                .withMessage( `The password field must be at least 6 characters`),
         ]
     }
 };

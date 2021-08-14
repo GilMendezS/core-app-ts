@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import customerFixture from '../../jest/fixtures/customer.fixture';
-import { addCustomer } from './customer.controller'
-import { createCustomer } from '../../services/customer/customer.service';
+import userFixture from '../../jest/fixtures/user.fixture';
+import { addCustomer, createUser } from './customer.controller'
+import { createCustomer, addUser } from '../../services/customer/customer.service';
 
 jest.mock( '../../services/customer/customer.service');
 
@@ -26,6 +27,30 @@ describe( 'Customer Controller', () => {
         expect( response.status ).toBeCalledWith( 201 )
         expect( responseObject ).toHaveProperty( 'message' )
         expect( responseObject ).toHaveProperty( 'data' );
+        expect ( responseObject ).toEqual( expectedResponse );
+    } )
+    it( 'should return 201 when a new user is created', async () => {
+        const mockCreateCustomer = addUser as jest.Mock;
+        mockCreateCustomer.mockImplementation( () => Promise.resolve( userFixture ) )
+        let responseObject = {};
+        const request = {};
+        const response: Partial<Response> = {
+            status: jest.fn().mockReturnValue({
+                json: jest.fn().mockImplementation((JSONdata) => {
+                    responseObject = JSONdata;
+                })
+            })
+        }
+        const expectedResponse = {
+            message: 'User created successfully',
+            data: userFixture,
+        }
+        await createUser( request as Request , response as Response );
+        expect( response.status ).toBeCalledWith( 201 )
+        expect( responseObject ).toHaveProperty( 'message' )
+        expect( responseObject ).toHaveProperty( 'data' );
+        expect( responseObject ).toHaveProperty( 'data.username' )
+        expect( responseObject ).toHaveProperty( 'data.id' )
         expect ( responseObject ).toEqual( expectedResponse );
     } )
 } )

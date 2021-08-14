@@ -9,3 +9,12 @@ export function getUserByUsername( username: string ) {
             throw new Error( 'Error fetching user' );
         } )
 };
+export function getByCustomerId( customer_id?: number ) {
+    return UserModel.findOne( { where: { customer_id } } )
+        .then( result => {
+            return result;
+        } )
+        .catch( err => {
+            throw new Error( 'Error fetching user' );
+        } )
+}  

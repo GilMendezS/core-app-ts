@@ -3,7 +3,7 @@ import morgan from 'morgan';
 import cors  from 'cors';
 import { errorHandler } from './middlewares/error.middleware';
 import { notFoundHandler } from './middlewares/not-found.middleware';
-import routes from './routes/index';
+import routes from './routes/index.routes';
 
 export class App {
     app: Application;

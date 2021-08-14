@@ -2,7 +2,7 @@
 import { Model, DataTypes } from 'sequelize'
 import database from '../config/database.connection';
 import CustomerAttributesI from '../models/interfaces/customer.interface';
-
+import AddressModel from '../models/interfaces/address.interface';
 export class CustomerModel extends Model implements CustomerAttributesI {
   id?: Number | undefined;
   first_name!: string;
@@ -10,7 +10,7 @@ export class CustomerModel extends Model implements CustomerAttributesI {
   second_last_name!: string;
   phone!: string;
   rfc!: string;
-
+  address?: AddressModel
 }
 
 CustomerModel.init( {

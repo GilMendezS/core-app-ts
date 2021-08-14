@@ -1,6 +1,8 @@
 import express, { Application } from 'express';
 import morgan from 'morgan';
 import cors  from 'cors';
+import { errorHandler } from './middlewares/error.middleware';
+import { notFoundHandler } from './middlewares/not-found.middleware';
 import routes from './routes/index';
 
 export class App {
@@ -27,6 +29,8 @@ export class App {
 
     }
     private errorHandlers() {
+        this.app.use( errorHandler );
+        this.app.use( notFoundHandler );
     }
     private routes() {
         this.app.use( routes )

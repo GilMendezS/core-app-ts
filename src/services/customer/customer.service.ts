@@ -15,6 +15,7 @@ export function createCustomer( data ) {
                 newCustomer.address = address;
                 return newCustomer;
         }).catch(function (err) {
+                console.log(err);
                 throw new Error( "Error saving customer." );
         });
 }

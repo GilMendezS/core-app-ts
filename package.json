@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "test:unit": "jest",
     "build": "tsc",
     "dev": "ts-node-dev  --respawn src/server.ts",
     "start": "node dist/server.js"
@@ -26,11 +27,14 @@
     "@types/cors": "^2.8.12",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.13",
+    "@types/jest": "^27.0.1",
     "@types/morgan": "^1.9.3",
     "@types/mysql2": "github:types/mysql2",
     "@types/sequelize": "^4.28.10",
     "dotenv": "^10.0.0",
+    "jest": "^27.0.6",
     "sequelize-cli": "^6.2.0",
+    "ts-jest": "^27.0.4",
     "ts-node-dev": "^1.1.8"
   }
 }

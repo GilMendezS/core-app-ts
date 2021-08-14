@@ -3,6 +3,7 @@ import { Model, DataTypes } from 'sequelize'
 import database from '../config/database.connection';
 import CustomerAttributesI from '../models/interfaces/customer.interface';
 import AddressModel from '../models/interfaces/address.interface';
+import { UserModel } from './user'
 export class CustomerModel extends Model implements CustomerAttributesI {
   id?: Number | undefined;
   first_name!: string;
@@ -10,7 +11,7 @@ export class CustomerModel extends Model implements CustomerAttributesI {
   second_last_name!: string;
   phone!: string;
   rfc!: string;
-  address?: AddressModel
+  address?: AddressModel;
 }
 
 CustomerModel.init( {
@@ -25,3 +26,6 @@ CustomerModel.init( {
   createdAt: 'created_at',
   updatedAt: 'updated_at',
 } );
+CustomerModel.hasOne( UserModel, {
+  foreignKey: 'customer_id'
+}  )

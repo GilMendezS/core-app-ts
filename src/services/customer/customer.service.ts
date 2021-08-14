@@ -18,3 +18,10 @@ export function createCustomer( data ) {
                 throw new Error( "Error saving customer." );
         });
 }
+export function verifyRfc( rfc: string ) {
+        return CustomerModel.findOne( { where: { rfc } } )
+        .then( result => result )
+        .catch( err => {
+                throw new Error('Error validating RFC.')
+        } );
+}

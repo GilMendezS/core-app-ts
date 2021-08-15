@@ -8,20 +8,17 @@ export async function auth(req: Request, res: Response, next: NextFunction) {
         message: 'Unauthorized'
     }
     if ( !authorization ) {
-        console.log('prmer if')
         res.statusCode = 401;
         return res.json( unauthorizedMessage )
     }
     const token = authorization.split( " " );
     const authenticatedUser = verifyJWT( token[1] );
-    if ( token[1] && !authenticatedUser ) {
-        console.log('token[1] && !authenticatedUser')
+    if ( !token[1] || !authenticatedUser ) {
         res.statusCode = 401;
         return res.json( unauthorizedMessage )
     }
     const canContinue = await tokenIsAlreadyActive( token[ 1 ] );
     if ( !canContinue ) {
-        console.log('!canContinue')
         res.statusCode = 401;
         return res.json( unauthorizedMessage )
     }

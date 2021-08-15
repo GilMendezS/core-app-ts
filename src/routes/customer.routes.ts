@@ -5,24 +5,28 @@ import CustomerRequestValidator from '../validators/customer.validator';
 import AccountRequestValidator from '../validators/account.validator';
 import { handlerException } from '../middlewares/exception.middleware';
 import RequestValidator  from '../middlewares/validator.middleware';
-import UpdateCustomerSchema from '../validators/schemas/update-customer.schema';
+import { auth } from '../middlewares/jwt.middleware';
 
-router.post('/', 
+router.post('/',
+    auth,
     CustomerRequestValidator.validateCreateCustomer(),
     RequestValidator.handleValidationError,
     handlerException( addCustomer ) );
 
 router.post( '/add-user',
+    auth,
     CustomerRequestValidator.validateCreateUser(),
     RequestValidator.handleValidationError,
     handlerException( createUser ))
 
 router.post( '/add-account',
+    auth,
     AccountRequestValidator.validateCreateAccount(),
     RequestValidator.handleValidationError,
     handlerException( account ) )
 
 router.patch( '/:id', 
+    auth,
     CustomerRequestValidator.validateUpdateCustomer(),
     RequestValidator.handleValidationError,
     handlerException( updateCustomer ),

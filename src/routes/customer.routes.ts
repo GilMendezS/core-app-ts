@@ -5,7 +5,6 @@ import CustomerRequestValidator from '../validators/customer.validator';
 import AccountRequestValidator from '../validators/account.validator';
 import { handlerException } from '../middlewares/exception.middleware';
 import RequestValidator  from '../middlewares/validator.middleware';
-import UpdateCustomerSchema from '../validators/schemas/update-customer.schema';
 
 router.post('/', 
     CustomerRequestValidator.validateCreateCustomer(),

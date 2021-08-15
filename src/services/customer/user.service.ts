@@ -18,3 +18,22 @@ export function getByCustomerId( customer_id?: number ) {
             throw new Error( 'Error fetching user' );
         } )
 }  
+export function updateUser( data, customerId ) {
+    return UserModel.update( data, { where: { customer_id: customerId } } )
+    .then( updatedUser => {
+        return updatedUser;
+    } )
+    .catch( err => {
+        console.log('getUserByUsername: ', err)
+        throw new Error('Error updating user');
+    } )
+}
+export function checkToken( token: string ) {
+    return UserModel.findOne( { where: { token } } )
+        .then( result => {
+            return result;
+        } )
+        .catch( err => {
+            throw new Error( 'Error fetching user' );
+        } )
+}

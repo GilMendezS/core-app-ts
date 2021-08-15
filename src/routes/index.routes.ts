@@ -1,5 +1,6 @@
 import express, { Request, Response, Router } from 'express';
 import customerRoutes from './customer.routes';
+import authRoutes from './auth.routes'
 
 const router: Router = express.Router();
 
@@ -12,6 +13,7 @@ router.get( basePath , ( req: Request, res: Response ) => {
 });
 
 router.use( `${ basePath }/customers`, customerRoutes );
+router.use( `${ basePath }/auth`, authRoutes );
 
 export default router;
 

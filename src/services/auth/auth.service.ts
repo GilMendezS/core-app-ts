@@ -1,4 +1,3 @@
-import { check } from 'express-validator';
 import { getUserByUsername, updateUser, checkToken } from '../customer/user.service';
 import { comparePassword } from '../hash/hash.service'
 import { generateJWT } from '../jwt/jwt.service';

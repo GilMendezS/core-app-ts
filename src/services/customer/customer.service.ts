@@ -6,7 +6,6 @@ import CompleteCustomer from '../../models/interfaces/basecustomer';
 import { generateHash }  from '../hash/hash.service';
 import { AccountModel } from '../../models/account';
 import AccountAttributesI from '../../models/interfaces/account.interface';
-import { updateCustomer } from '../../controllers/customer/customer.controller';
 import AddressAttributesI from '../../models/interfaces/address.interface';
 
 export function createCustomer( data ) {
@@ -50,8 +49,10 @@ export function findCustomerById( id: number ) {
                 throw new Error( "Error fetching customer." );
         } )
 }
-export function addAccount( data: AccountAttributesI ) {
-    data.nip = generateHash( data.nip as string ) as string;
+export function addAccount( data: AccountAttributesI, external = false ) {
+    if ( !external ) {
+        data.nip = generateHash( data.nip as string ) as string;
+    }
     return database.transaction( (t) =>  {
         return AccountModel.create( data , { transaction: t })
             .then( (account) => {
@@ -59,7 +60,6 @@ export function addAccount( data: AccountAttributesI ) {
         })
     })
     .catch(function (err) {
-        console.log( 'ERROR', err );
         throw new Error( "Error saving account." );
     });
 }

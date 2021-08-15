@@ -13,7 +13,7 @@ class AccountValidator {
                 .isIn( [ 1, 2, 3] )
                 .withMessage( 'Invalid product_id' ).bail(),
             body( 'balance' ).notEmpty()
-            .withMessage( 'The account_number field is required' ).bail()
+            .withMessage( 'The balance field is required' ).bail()
             .isDecimal(  ).withMessage( 'Th¿e field balance has an invalid format' ),
             body( 'status' ).notEmpty( )
                 .withMessage( 'The status field is required' ).bail()

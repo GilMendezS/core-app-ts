@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
 import customerFixture from '../../jest/fixtures/customer.fixture';
 import userFixture from '../../jest/fixtures/user.fixture';
-import { addCustomer, createUser } from './customer.controller'
-import { createCustomer, addUser } from '../../services/customer/customer.service';
+import accountFixture from '../../jest/fixtures/account.fxture'
+import { account, addCustomer, createUser } from './customer.controller'
+import { createCustomer, addUser, addAccount } from '../../services/customer/customer.service';
 
 jest.mock( '../../services/customer/customer.service');
 
@@ -28,7 +29,7 @@ describe( 'Customer Controller', () => {
         expect( responseObject ).toHaveProperty( 'message' )
         expect( responseObject ).toHaveProperty( 'data' );
         expect ( responseObject ).toEqual( expectedResponse );
-    } )
+    } );
     it( 'should return 201 when a new user is created', async () => {
         const mockCreateCustomer = addUser as jest.Mock;
         mockCreateCustomer.mockImplementation( () => Promise.resolve( userFixture ) )
@@ -52,5 +53,29 @@ describe( 'Customer Controller', () => {
         expect( responseObject ).toHaveProperty( 'data.username' )
         expect( responseObject ).toHaveProperty( 'data.id' )
         expect ( responseObject ).toEqual( expectedResponse );
-    } )
+    } );
+    it( 'should return 201 when a new account is created', async () => {
+        const mockCreateCustomer = addAccount as jest.Mock;
+        mockCreateCustomer.mockImplementation( () => Promise.resolve( accountFixture ) )
+        let responseObject = {};
+        const request = {};
+        const response: Partial<Response> = {
+            status: jest.fn().mockReturnValue({
+                json: jest.fn().mockImplementation((JSONdata) => {
+                    responseObject = JSONdata;
+                })
+            })
+        }
+        const expectedResponse = {
+            message: 'The account was created successfully',
+            data: accountFixture,
+        }
+        await account( request as Request , response as Response );
+        expect( response.status ).toBeCalledWith( 201 )
+        expect( responseObject ).toHaveProperty( 'message' )
+
+        expect( responseObject ).toHaveProperty( 'data' );
+
+        expect ( responseObject ).toEqual( expectedResponse );
+    } );
 } )

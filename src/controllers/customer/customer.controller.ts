@@ -23,7 +23,7 @@ export async function account( req: Request, res: Response ) : Promise<Response>
     const data:AccountAttributesI = req.body;
     const result = await addAccount( data );
     return res.status( 201 ).json( {
-        success: true,
+        message: 'The account was created successfully',
         data: result,
     } )
 }

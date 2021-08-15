@@ -8,7 +8,7 @@ export class AccountModel extends Model implements AccountAttributesI {
   account_number!: string;
   product_id!: number;
   balance!: number;
-  status!: number;
+  status!: string;
   nip!: string;
   customer_id!: number;
 }

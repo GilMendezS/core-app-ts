@@ -45,11 +45,11 @@ export function findCustomerById( id: number ) {
     return CustomerModel.findByPk( id )
         .then( result => result )
         .catch( err => {
-                throw new Error( "Error fetching user." );
+                throw new Error( "Error fetching customer." );
         } )
 }
 export function addAccount( data: AccountAttributesI ) {
-    data.nip = generateHash( data.nip ) as string;
+    data.nip = generateHash( data.nip as string ) as string;
     return database.transaction( (t) =>  {
         return AccountModel.create( data , { transaction: t })
             .then( (account) => {

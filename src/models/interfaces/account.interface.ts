@@ -3,7 +3,7 @@ export default interface AccountAttributesI {
     account_number: string;
     product_id:  number;
     balance:  number;
-    status:  number;
-    nip:  string;
+    status:  string;
+    nip?:  string;
     customer_id: number,
 }

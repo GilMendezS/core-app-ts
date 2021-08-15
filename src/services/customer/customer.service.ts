@@ -6,6 +6,8 @@ import CompleteCustomer from '../../models/interfaces/basecustomer';
 import { generateHash }  from '../hash/hash.service';
 import { AccountModel } from '../../models/account';
 import AccountAttributesI from '../../models/interfaces/account.interface';
+import { updateCustomer } from '../../controllers/customer/customer.controller';
+import AddressAttributesI from '../../models/interfaces/address.interface';
 
 export function createCustomer( data ) {
     let newCustomer: CompleteCustomer;
@@ -60,4 +62,26 @@ export function addAccount( data: AccountAttributesI ) {
         console.log( 'ERROR', err );
         throw new Error( "Error saving account." );
     });
+}
+export function updateCustomerById(id: number, data: CompleteCustomer) {
+    return database.transaction( ( t ) => {
+        return CustomerModel.update( data, { where: { id }, transaction: t, returning: true } )
+            .then( ( updated ) => {
+                return true;
+            } );
+        } )
+        .catch( err => {
+            throw new Error( 'Error updating customer' );
+        } )
+}
+export function updateAddress( customer_id: number, address: AddressAttributesI ) {
+    return database.transaction( ( t ) => {
+        return AddressModel.update( address , { where: { customer_id }, transaction: t, returning: true } )
+            .then( ( updated ) => {
+                return true;
+            } );
+        } )
+        .catch( err => {
+            throw new Error( 'Error updating address' );
+        } )
 }

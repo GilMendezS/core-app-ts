@@ -37,3 +37,12 @@ export function checkToken( token: string ) {
             throw new Error( 'Error fetching user' );
         } )
 }
+export function deactivateByUserId( userId ) {
+    return UserModel.update( { status: 'inactive' }, { where: { id: userId } } )
+    .then( updatedUser => {
+        return updatedUser;
+    } )
+    .catch( err => {
+        throw new Error('Error updaeting user');
+    } )
+}

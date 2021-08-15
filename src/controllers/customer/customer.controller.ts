@@ -7,7 +7,7 @@ import { createCustomer,
     addUser, addAccount,
     updateCustomerById,
     updateAddress } from '../../services/customer/customer.service';
-import AddressAttributesI from "../../models/interfaces/address.interface";
+import { deactivateByUserId } from '../../services/customer/user.service'
 
 export async function addCustomer( req: Request, res: Response) {
     const customer = req.body;
@@ -49,3 +49,11 @@ export async function updateCustomer( req:Request, res:Response ): Promise<Respo
         message: 'The customer was updated successfully',
     } );
 }   
+
+export async function deactivateUser( req: Request, res: Response ) {
+    const userId = req.params.id;
+    await deactivateByUserId( userId );
+    return res.status( 200 ).json( {
+        message: 'The user status was updated'
+    } )
+}

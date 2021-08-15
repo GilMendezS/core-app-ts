@@ -8,7 +8,8 @@ const db: Sequelize = new Sequelize(
     {
         host: AppConfig.loadEnvs().db_host,
         port: AppConfig.loadEnvs().db_port,
-        dialect: AppConfig.loadEnvs().db_dialect
+        dialect: AppConfig.loadEnvs().db_dialect,
+        logging: false
     },
 );
 

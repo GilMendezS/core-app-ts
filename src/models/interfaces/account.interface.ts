@@ -5,5 +5,6 @@ export default interface AccountAttributesI {
     balance:  number;
     status:  string;
     nip?:  string;
-    customer_id: number,
+    customer_id: number;
+    external?: boolean;
 }

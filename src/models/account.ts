@@ -11,6 +11,17 @@ export class AccountModel extends Model implements AccountAttributesI {
   status!: string;
   nip!: string;
   customer_id!: number;
+  external!: boolean
+  hasEnoughBalance( amount: number ) {
+    return this.balance >= amount;
+  }
+  restBalance( amount: number ) {
+    return this.balance - amount;
+    
+  }
+  sumBalance( amount: number ) {
+    return this.balance + amount;
+  }
 }
 
 AccountModel.init({
@@ -19,7 +30,8 @@ AccountModel.init({
     balance: DataTypes.DOUBLE,
     status: DataTypes.STRING,
     nip: DataTypes.STRING,
-    customer_id: DataTypes.INTEGER
+    customer_id: DataTypes.INTEGER,
+    external: DataTypes.BOOLEAN
   }, {
     sequelize: database,
     tableName: 'accounts',

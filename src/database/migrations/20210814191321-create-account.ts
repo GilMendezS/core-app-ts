@@ -11,6 +11,7 @@ module.exports = {
       account_number: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true,
       },
       product_id: {
         type: Sequelize.DataTypes.INTEGER,
@@ -23,7 +24,7 @@ module.exports = {
         allowNull: false
       },
       balance: {
-        type: Sequelize.DOUBLE
+        type: Sequelize.DOUBLE,
       },
       status: {
         type: Sequelize.ENUM('active','inactive')
@@ -40,6 +41,10 @@ module.exports = {
           key: 'id'
         },
         allowNull: false
+      },
+      external: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: 0,
       },
       created_at: {
         allowNull: false,

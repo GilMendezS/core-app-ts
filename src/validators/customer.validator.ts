@@ -64,6 +64,32 @@ class CustomerRequestValidator {
                 .withMessage( `The password field must be at least 6 characters`),
         ]
     }
+    validateUpdateCustomer() {
+        return [
+            body( 'phone' ).optional( { nullable: true, checkFalsy: true} )
+                .matches( '^[0-9]{10}$' )
+                .withMessage('The phone field just accepts 10 digits'),
+                body( 'adddress' ).optional( { nullable: true, checkFalsy: true} ),
+                body( 'address.street' ).optional( { nullable: true, checkFalsy: true} )
+                    .isLength( { max: 254 } )
+                    .withMessage('The address.street must be alphanumeric'),
+                body( 'address.number' ).optional( { nullable: true, checkFalsy: true} )
+                    .isLength( { max: 254 } )
+                    .withMessage('The address.number must be alphanumeric'),
+                body( 'address.neighborhood' ).optional( { nullable: true, checkFalsy: true} )
+                    .isLength( { max: 254 } )
+                    .withMessage('The address.neighborhood must be alphanumeric'),
+                body( 'address.state' ).optional( { nullable: true, checkFalsy: true} )
+                    .isLength( { max: 254 } )
+                    .withMessage('The address.state must be alphanumeric'),
+                body( 'address.municipality' ).optional( { nullable: true, checkFalsy: true} )
+                    .isLength( { max: 254 } )
+                    .withMessage('The address.municipality must be alphanumeric'),
+                body( 'address.country' ).optional( { nullable: true, checkFalsy: true} )
+                    .isLength( { max: 254 } )
+                    .withMessage('The address.municipality must be alphanumeric')
+        ];
+    }
 };
 
 export default new CustomerRequestValidator();

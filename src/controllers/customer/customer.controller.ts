@@ -1,7 +1,13 @@
 import { Request, Response } from "express";
+import BaseCustomer from '../../models/interfaces/basecustomer';
 import AccountAttributesI from "../../models/interfaces/account.interface";
+import CustomerAttributesI from "../../models/interfaces/customer.interface";
 import  UserAttributes from '../../models/interfaces/user.interface';
-import { createCustomer, addUser, addAccount } from '../../services/customer/customer.service';
+import { createCustomer,
+    addUser, addAccount,
+    updateCustomerById,
+    updateAddress } from '../../services/customer/customer.service';
+import AddressAttributesI from "../../models/interfaces/address.interface";
 
 export async function addCustomer( req: Request, res: Response) {
     const customer = req.body;
@@ -27,3 +33,19 @@ export async function account( req: Request, res: Response ) : Promise<Response>
         data: result,
     } )
 }
+export async function updateCustomer( req:Request, res:Response ): Promise<Response> {
+    const userId = req.params.id as unknown as number;
+    const update: BaseCustomer = req.body;
+    const updates: Promise<boolean> []=  [];
+    if ( update.phone ) {
+        updates.push( updateCustomerById( userId, { phone: update.phone } as CustomerAttributesI ) )
+    }
+    if ( update.address ) {
+        updates.push( updateAddress( userId, update.address ) )
+    }
+    await Promise.allSettled( updates );
+    
+    return res.status( 200 ).json( {
+        message: 'The customer was updated successfully',
+    } );
+}   

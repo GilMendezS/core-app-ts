@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import customerFixture from '../../jest/fixtures/customer.fixture';
 import userFixture from '../../jest/fixtures/user.fixture';
-import accountFixture from '../../jest/fixtures/account.fxture'
+import accountFixture from '../../jest/fixtures/account.fixture'
 import { account, addCustomer, createUser } from './customer.controller'
 import { createCustomer, addUser, addAccount } from '../../services/customer/customer.service';
 

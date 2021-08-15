@@ -3,15 +3,10 @@ import { TransactionModel } from '../../models/transaction';
 import database from '../../config/database.connection'
 import { TransactionAttibutes, TransactionResponse } from '../../models/interfaces/transaction.interface';
 import { TransactionRequest } from '../../models/interfaces/transaction-request.interface';
-
-export function getAccountById( id: number ) {
-    return AccountModel.findByPk( id )
-        .then( result => {
-            return result;
-        } )
-        .catch( err => {
-            throw new Error( 'Error fetching origin account' );
-        } )
+import { getAccountById } from '../account/account.service'
+export async function getAccount( id: number ) {
+    const account = await getAccountById( id );
+    return account;
 }
 export function mustBeRejected( user, origin: AccountModel, destination:AccountModel ) {
     const result: TransactionResponse = {
@@ -20,12 +15,12 @@ export function mustBeRejected( user, origin: AccountModel, destination:AccountM
         success: true,
         continue: true
     }
-    if ( !origin ) {
+    if ( !origin?.id ) {
         result.message = 'Your transaction cannot be completed. Invalid origin account';
         result.continue = false;
         return result;
     }
-    if ( !destination ) {
+    if ( !destination?.id ) {
         result.message = 'Your transaction cannot be completed. Invalid destination account';
         result.continue = false;
         return result;
@@ -36,13 +31,14 @@ export function mustBeRejected( user, origin: AccountModel, destination:AccountM
         result.continue = false;
         return result;
     }
+    result.code = 200;
     return result;
 }
 export async function getOriginAndDestination( originId:number, destinationId: number  ) {
     const [ origin, destination ] = await Promise.all( 
         [ 
-            getAccountById( originId ),
-            getAccountById( destinationId )
+            getAccount( originId ),
+            getAccount( destinationId )
         ] ) as AccountModel[];
     return {
         origin,

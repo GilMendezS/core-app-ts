@@ -6,7 +6,6 @@ import CompleteCustomer from '../../models/interfaces/basecustomer';
 import { generateHash }  from '../hash/hash.service';
 import { AccountModel } from '../../models/account';
 import AccountAttributesI from '../../models/interfaces/account.interface';
-import { updateCustomer } from '../../controllers/customer/customer.controller';
 import AddressAttributesI from '../../models/interfaces/address.interface';
 
 export function createCustomer( data ) {

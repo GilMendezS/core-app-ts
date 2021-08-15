@@ -1,6 +1,10 @@
 import express, { Router } from 'express';
 const router: Router = express.Router();
-import { addCustomer, createUser, account, updateCustomer } from '../controllers/customer/customer.controller';
+import { addCustomer,
+    createUser,
+    account,
+    updateCustomer,
+    deactivateUser } from '../controllers/customer/customer.controller';
 import CustomerRequestValidator from '../validators/customer.validator';
 import AccountRequestValidator from '../validators/account.validator';
 import { handlerException } from '../middlewares/exception.middleware';
@@ -31,5 +35,8 @@ router.patch( '/:id',
     RequestValidator.handleValidationError,
     handlerException( updateCustomer ),
 )
+router.patch( '/:id/lock',
+    auth,
+    handlerException( deactivateUser  ) );
 
 export default router;

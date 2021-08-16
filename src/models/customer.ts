@@ -26,6 +26,7 @@ CustomerModel.init( {
 }, {
   sequelize: database,
   modelName: 'Customer',
+  tableName: 'customers',
   createdAt: 'created_at',
   updatedAt: 'updated_at',
 } );

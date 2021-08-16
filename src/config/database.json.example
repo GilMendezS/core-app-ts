@@ -1,0 +1,9 @@
+{
+    "development": {
+        "username": "gmendez",
+        "password": "core_app_development",
+        "database": "secretpassword",
+        "host": "mysql_server",
+        "dialect": "mysql"
+    }
+}

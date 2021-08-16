@@ -16,7 +16,7 @@ ProductModel.init({
   active: DataTypes.BOOLEAN
   }, {
     sequelize: database,
-    tableName: 'accounts',
+    tableName: 'products',
     modelName: 'Account',
     createdAt: 'created_at',
     updatedAt: 'updated_at'

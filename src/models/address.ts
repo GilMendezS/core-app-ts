@@ -25,6 +25,7 @@ AddressModel.init( {
 }, {
   sequelize: database,
   modelName: 'Address',
+  tableName: 'addresses',
   createdAt: 'created_at',
   updatedAt: 'updated_at',
 } );

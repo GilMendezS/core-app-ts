@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run test",
     "test:unit": "jest",
     "build": "tsc",
-    "dev": "ts-node-dev  --respawn src/server.ts",
+    "dev": "ts-node-dev --respawn src/server.ts",
     "start": "node dist/server.js",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "runmigrations": "npx sequelize-cli db:migrate",
+    "runseeders": "npx sequelize-cli db:seed:all"
   },
   "keywords": [],
   "author": "",

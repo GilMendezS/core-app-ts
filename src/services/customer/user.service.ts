@@ -6,6 +6,7 @@ export function getUserByUsername( username: string ) {
             return result;
         } )
         .catch( err => {
+            console.log( err )
             throw new Error( 'Error fetching user' );
         } )
 };

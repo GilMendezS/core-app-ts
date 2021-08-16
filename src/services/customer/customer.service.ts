@@ -20,6 +20,7 @@ export function createCustomer( data ) {
                 newCustomer.address = address;
                 return newCustomer;
         }).catch(function (err) {
+                console.log( err );
                 throw new Error( "Error saving customer." );
         });
 };
@@ -60,6 +61,7 @@ export function addAccount( data: AccountAttributesI, external = false ) {
         })
     })
     .catch(function (err) {
+        console.log( err );
         throw new Error( "Error saving account." );
     });
 }

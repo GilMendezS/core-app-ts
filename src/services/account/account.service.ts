@@ -9,3 +9,12 @@ export function getAccountById( id: number ) {
             throw new Error( 'Error fetching account' );
         } )
 }
+export function getAccountByNumber( account: string ) {
+    return AccountModel.findOne({ where: { account_number: account } } )
+        .then( result => {
+            return result;
+        } )
+        .catch( err => {
+            throw new Error( 'Error fetching account' );
+        } )
+}

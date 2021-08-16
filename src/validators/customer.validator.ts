@@ -9,7 +9,7 @@ class CustomerRequestValidator {
             body( 'primary_last_name' ).notEmpty()
                 .withMessage('The primary_last_name field is required'),
             body( 'second_last_name' ).notEmpty()
-                .withMessage('The primary_last_name field is required'),
+                .withMessage('The second_last_name field is required'),
             body( 'phone' ).optional( { nullable: true, checkFalsy: true} )
                 .matches( '^[0-9]{10}$' )
                 .withMessage('The phone field just accepts 10 digits'),
@@ -31,7 +31,7 @@ class CustomerRequestValidator {
             body( 'address.municipality' ).notEmpty()
                 .withMessage('The address.municipality field is required'),
             body( 'address.country' ).notEmpty()
-                .withMessage('The address.municipality field is required')
+                .withMessage('The address.country field is required')
         ]
     }
     validateCreateUser() {
@@ -49,7 +49,7 @@ class CustomerRequestValidator {
                     }
                 } ),
             body( 'username' ).notEmpty()
-                .withMessage( 'The username field is required' )
+                .withMessage( 'The username field is required' ).bail()
                 .isLength({ min:5 })
                 .withMessage( 'The username field must be at least 5 characters' )
                 .custom( async username => {
@@ -59,7 +59,7 @@ class CustomerRequestValidator {
                     }
                 } ),
             body( 'password' ).notEmpty()
-                .withMessage( 'The password fiels is required' )
+                .withMessage( 'The password field is required' ).bail()
                 .isLength( { min: 6 } )
                 .withMessage( `The password field must be at least 6 characters`),
         ]

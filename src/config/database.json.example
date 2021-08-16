@@ -1,8 +1,8 @@
 {
     "development": {
         "username": "gmendez",
-        "password": "core_app_development",
-        "database": "secretpassword",
+        "password": "secretpassword",
+        "database": "core_app_development",
         "host": "mysql_server",
         "dialect": "mysql"
     }
